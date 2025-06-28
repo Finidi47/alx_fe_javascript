@@ -18,14 +18,14 @@ function showRandomQuote(){
     let display = document.getElementById('quoteDisplay');
 
     // clear previous content 
-    display.textContent = '';
+    display.innerHTML = '';
 
     // create elements for quote text and category
     const quoteText = document.createElement('p');
-    quoteText.textContent = `"${randomQuote.text}"`;
+    quoteText.innerHTML = `"${randomQuote.text}"`;
 
     const quoteCategory = document.createElement('p');
-    quoteCategory.textContent = `Category: ${randomQuote.category}`;
+    quoteCategory.innerHTML = `Category: ${randomQuote.category}`;
 
 
     // append the created elements to the container
