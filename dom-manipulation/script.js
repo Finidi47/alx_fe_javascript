@@ -165,3 +165,18 @@ function exportQuotes() {
  // attach event listener to the export button 
     exportBtn = document.getElementById('exportQuotes');
     exportBtn.addEventListener('click', exportQuotes)
+
+
+    // Function to import quotes from a selected JSON file
+
+function importFromJsonFile(event){
+    const fileReader = new FileReader();
+
+    fileReader.onload = function(event) {
+      const importedQuotes = JSON.parse(event.target.result);
+      quotes.push(...importedQuotes);
+      saveQuotes();
+      alert('Quotes imported successfully!');
+    };
+    fileReader.readAsText(event.target.files[0]);
+}
