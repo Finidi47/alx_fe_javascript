@@ -1,10 +1,38 @@
 // Initial quotes array
-const quotes = [
+
+let quotes = [
     { text: "Talk is cheap. Show me the code.", category: "Tech" },
     { text: "Code is like humor. When you have to explain it, it’s bad.", category: "Humor" },
     { text: "Stay positive.", category: "Motivational" },
     { text: "Eat. Sleep. Code. Repeat.", category: "Tech" }
 ]
+
+// Try to get saved quotes JSON string
+const savedQuotesJSON = localStorage.getItem('quotes');
+
+// If found, parse and use it; otherwise, keep default
+if (savedQuotesJSON){
+    quotes = JSON.parse(savedQuotesJSON);
+}
+
+/* // Optional: Load last displayed quote from Session Storage
+const lastquoteJSON = sessionStorage.getItem('lastQuote');
+if (lastquoteJSON) {
+    const lastQuote = JSON.parse(lastquoteJSON);
+
+        // Display lastQuote in the quoteDisplay div
+        const quoteDisplay = document.getElementById('quoteDisplay');
+        quoteDisplay.innerHTML = ''; // Clear previous content
+
+        const quoteText = document.createElement('p');
+        quoteText.textContent = `"${lastQuote.text}"`;
+
+        const quoteCategory = document.createElement('p');
+        quoteCategory.textContent = `Category: ${lastQuote.category}`;
+
+        quoteDisplay.appendChild(quoteText);
+        quoteDisplay.appendChild(quoteCategory);
+}  */
 
 
 // show random quote func
@@ -31,6 +59,9 @@ function showRandomQuote(){
     // append the created elements to the container
     display.appendChild(quoteText);
     display.appendChild(quoteCategory);
+
+    // save the quote in session storage
+    sessionStorage.setItem('lastquote', JSON.stringify(randomQuote))
 }
 
 // listen  to the newQuote button and show the quotes
@@ -75,7 +106,14 @@ function createAddQuoteForm(){
         // Add the new object to the main array
         quotes.push(newQuoteObject);
 
-        // clear th input fields 
+        // save the updated quotes array to the local storage
+        localStorage.setItem('quotes', JSON.stringify(quotes));
+
+        // Optional: Show the new quote immediately
+        // showRandomQuote();
+
+    
+        // clear the input fields 
         quoteInput.value = '';
         categoryInput.value = '';
 
