@@ -132,3 +132,36 @@ function createAddQuoteForm(){
 
 const addBtn = document.getElementById('addNewQuote');
 addBtn.addEventListener('click', createAddQuoteForm);
+
+
+// ===============================SECTION 3 - Export & Import========================================
+
+// Function to export quotes to a JSON file
+function exportQuotes() {
+    // convert quotes arry to JSON string
+    const quotesJSON = JSON.stringify(quotes, null, 2)
+
+    // create a new blob object from the json string
+    const blob = new Blob([quotesJSON], {type: 'application/json'});
+
+    // generate a temporary url for the blob
+    const url = URL.createObjectURL(blob)
+
+    // create a temporary link
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'quotes.json' //name of the download file
+
+    // append the link, simulate click, then remove it
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    //revoke the temporary url to free memory
+    URL.revokeObjectURL(url); 
+
+}
+
+ // attach event listener to the export button 
+    exportBtn = document.getElementById('exportQuotes');
+    exportBtn.addEventListener('click', exportQuotes)
